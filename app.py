@@ -104,7 +104,7 @@ def tobs():
         # Create our session (link) from Python to the DB
         session = Session(engine)
 
-        # Query all precipitation data by date, filtering by the last year
+        # Query all precipitation data by date, filtering by the last year's worth of data
         temp_results = session.query(Measurement.date, Measurement.tobs).filter(Measurement.station == 'USC00519281').filter(Measurement.date >= dt.date(2016, 8, 23)).all()
 
         # Close the connection session to the database
@@ -123,6 +123,7 @@ def min_avg_max_start(start):
         # Create our session (link) from Python to the DB
         session = Session(engine)
 
+        # Query the temperature data, filtering by the start date provided in the URL
         results = session.query(Measurement.tobs).filter(Measurement.date >= start).all()
 
         # Initialize empty temperaturse list
@@ -144,6 +145,7 @@ def min_avg_max_start_end(start, end):
         # Create our session (link) from Python to the DB
         session = Session(engine)
 
+        # Query the temperature data, filtering by the start and end dates provided in the URL
         results = session.query(Measurement.tobs).filter(Measurement.date >= start).filter(Measurement.date <= end).all()
 
         # Initialize empty temperaturse list
